@@ -1,0 +1,17 @@
+#
+#  Date  : 2022-07-05
+#  URL   : https://school.programmers.co.kr/learn/courses/30/lessons/42842
+#
+#  풀이에 걸린 시간 : 24분
+
+def solution(brown, yellow):
+    answer = []
+    for h in range(1,yellow+1): # 노란색의 가능한 모든 w*h
+        if yellow % h == 0: # 약수인 경우만
+            w = yellow / h
+            if h>w: # 가로가 더 길어야한다
+                break
+            if brown == (w+2)*2 + h*2: # 갈색 타일의 수가 노란색이 w,h일 경우와 일치하면
+                answer=[w+2,h+2]
+                break
+    return answer
