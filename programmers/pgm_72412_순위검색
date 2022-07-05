@@ -1,0 +1,40 @@
+#
+#  Date  : 2022-07-04
+#  URL   : https://programmers.co.kr/learn/courses/30/lessons/72412
+#
+#  풀이에 걸린 시간 : 1시간
+
+from itertools import combinations
+from bisect import bisect_left
+
+def solution(info, query):
+    answer = []
+    dictionary = dict()
+    
+    for i in info:
+        info_ = i.split(" ")
+        info_key = info_[:-1] # 조건을 key로
+        info_val = info_[-1] # 점수를 value로
+
+        for j in range(5): # 딕셔너리에 info_key의 모든 조합을 key로, 해당 점수를 등록
+            for c in combinations(info_key,j):
+                c_ = ''.join(c)
+                if c_ in dictionary:
+                    dictionary[c_].append(int(info_val))
+                else:
+                    dictionary[c_] = [int(info_val)]
+    
+    for k,v in dictionary.items():
+        dictionary[k] = sorted(v) # 딕셔너리를 점수 오름차순으로 정렬
+        
+    for q in query:
+        query_ = q.split(" ")
+        query_key = ""
+        for j in range(0,7,2):
+            if query_[j] != '-':
+                query_key += query_[j]
+        if query_key in dictionary: # 쿼리 key값이 딕셔너리에 있을경우
+            answer.append(len(dictionary[query_key])-bisect_left(dictionary[query_key],int(query_[7]))) # 이진 탐색으로 더 큰 점수의 개수 구하기
+        else:
+            answer.append(0) # 쿼리 key값이 딕셔너리에 없을경우 0개
+    return answer
