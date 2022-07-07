@@ -1,0 +1,21 @@
+#
+#  Date  : 2022-07-07
+#  URL   : https://programmers.co.kr/learn/courses/30/lessons/12985
+#
+#  풀이에 걸린 시간 : 7분
+
+import math
+
+def solution(n,a,b):
+    answer = 0
+
+    rounds = 1
+    while True:
+        a = math.ceil(a/2)
+        b = math.ceil(b/2)
+        if a == b:
+            answer = rounds
+            break
+        rounds += 1
+
+    return answer
